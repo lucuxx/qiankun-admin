@@ -1,14 +1,15 @@
 module.exports = {
   lintOnSave: false,
+  publicPath: '/server/',
   devServer: {
     proxy: {
-      "/api": {
-        target: "http://localhost:3000/api/",
+      '/api': {
+        target: 'http://localhost:3000/api/',
         changeOrigin: true,
         pathRewrite: {
-          "^/api": ""
-        }
+          '^/api': '',
+        },
       },
-    },  // 配置多个代理
-  }
-};
+    }, // 配置多个代理
+  },
+}
