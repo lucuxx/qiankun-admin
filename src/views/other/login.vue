@@ -15,7 +15,11 @@
             <span>欢迎登录</span>
           </div>
           <div style="margin-top: 20px">
-            <el-form label-width="80px" :model="userForm">
+            <el-form
+              label-width="80px"
+              :model="userForm"
+              @keyup.enter.native="goLogin"
+            >
               <el-form-item label="邮箱">
                 <el-input
                   type="text"
@@ -68,7 +72,12 @@ export default class LoginNav extends Vue {
         if (code === 0) {
           this.$router.push({ path: '/' })
         } else {
-          this.$message.error(data)
+          // this.$message.error(data)
+          this.$notify({
+            title: '提示',
+            message: data,
+            duration: 3000,
+          })
         }
       })
       .catch((err: any) => {

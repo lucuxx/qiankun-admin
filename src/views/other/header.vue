@@ -1,6 +1,6 @@
 <template>
-  <section class="header">
-    <ul class="ul">
+  <!-- <section class="header"> -->
+  <!-- <ul class="ul">
       <li
         class="li"
         v-for="(item, index) in routerData"
@@ -36,8 +36,38 @@
       <li v-else class="li" style="float: right">
         <router-link class="routerJump" to="/login">[登录]</router-link>
       </li>
-    </ul>
-  </section>
+    </ul> -->
+  <!-- </section> -->
+  <div class="container">
+    <el-menu
+      default-active="/home/index"
+      class="el-menu-vertical"
+      router
+      background-color="#545c64"
+      :collapse="isCollapse"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+    >
+      <el-menu-item index="/home/index">
+        <i class="el-icon-menu"></i>
+        <span slot="title">首页</span>
+      </el-menu-item>
+      <el-menu-item index="/home/addClass">
+        <i class="el-icon-location"></i>
+        <span slot="title">分类管理</span>
+      </el-menu-item>
+      <el-menu-item index="/home/tags">
+        <i class="el-icon-document"></i>
+        <span slot="title">标签管理</span>
+      </el-menu-item>
+    </el-menu>
+    <div
+      :class="isCollapse ? 'el-menu-btn-left' : 'el-menu-btn-right'"
+      @click="handlerClickMenu"
+    >
+      <i class="el-icon-s-fold"></i>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -51,6 +81,7 @@ export default class HeaderNav extends Vue {
   @Action setUserInfo: any
   @Getter userInfo: any
   isLogin: boolean = false
+  isCollapse: boolean = false
   routerData: Array<Types.RouterData> = [
     { name: '首页', path: '/home/index' },
     { name: '分类管理', path: '/home/addClass' },
@@ -73,6 +104,11 @@ export default class HeaderNav extends Vue {
         this.isLogin = this.$lo.size(this.userInfo) !== 0
       }
     }
+  }
+
+  handlerClickMenu() {
+    this.isCollapse = !this.isCollapse
+    this.$forceUpdate()
   }
 
   changeIndex(params: Types.RouterData): void {
@@ -137,5 +173,36 @@ export default class HeaderNav extends Vue {
       }
     }
   }
+}
+.el-menu-vertical {
+  // width: 199px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: calc(100vh);
+  // background: #fff;
+}
+.el-menu-vertical:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+
+.el-menu-btn-right {
+  margin-top: calc((100vh / 2) - 30px);
+  width: 14px;
+  line-height: 60px;
+  border-radius: 0 10px 10px 0;
+  background: #bac4cf;
+  font-size: 14px;
+  cursor: pointer;
+}
+.el-menu-btn-left {
+  margin-top: calc((100vh / 2) - 30px);
+  width: 14px;
+  line-height: 60px;
+  border-radius: 0 10px 10px 0;
+  background: #bac4cf;
+  font-size: 14px;
+  cursor: pointer;
 }
 </style>

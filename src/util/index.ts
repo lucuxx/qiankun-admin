@@ -1,3 +1,4 @@
+import moment from 'moment';
 import _ from 'lodash';
 import {Message} from 'element-ui';
 
@@ -29,8 +30,13 @@ const checkResp = (resp: any) => {
     Message.error(resp.data);
     return Promise.reject(resp);
 };
+const checkTime = (val: any) => {
+    return moment(Number(val)).format('YYYY-MM-DD HH:mm:ss')
+}
 
 export default {
     DecodeCookie,
-    checkResp
+    checkResp,
+    checkTime
 };
+
